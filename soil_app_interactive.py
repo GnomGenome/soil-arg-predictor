@@ -83,27 +83,87 @@ if uploaded_file:
     st.dataframe(df_model[["Sample","ARG_fraction","ARG_fraction_pred","soil_description"]])
 
     # --- График ---
-    st.subheader("📈 График доли ARG")
-    fig, ax = plt.subplots(figsize=(12,6))
-    bar_width = 0.4
-    indices = np.arange(len(df_model))
+    st.subheader("📈 Доля антибиотикорезистентных генов (ARG)")
 
-    ax.bar(indices - bar_width/2, df_model["ARG_fraction"], width=bar_width, color='orange', alpha=0.07, label='Фактическая ARG_fraction')
-    ax.bar(indices + bar_width/2, df_model["ARG_fraction_pred"], width=bar_width, color='blue', alpha=0.05, label='Прогнозная ARG_fraction')
-
+    fig, ax = plt.subplots(figsize=(14, 6), dpi=150)
+    
+    x = np.arange(len(df_model))
+    
+    # --- Столбцы: фактическая доля ARG ---
+    bars = ax.bar(
+        x,
+        df_model["ARG_fraction"],
+        color="tab:orange",
+        alpha=0.7,
+        label="Фактическая доля ARG"
+    )
+    
+    # --- Точки: прогноз модели ---
+    ax.scatter(
+        x,
+        df_model["ARG_fraction_pred"],
+        color="tab:blue",
+        s=40,
+        zorder=3,
+        label="Прогноз модели"
+    )
+    
+    # --- Пороговые линии ---
+    ax.axhline(
+        threshold_clean,
+        color="green",
+        linestyle="--",
+        linewidth=1.5,
+        label=f"Порог чистой почвы ({threshold_clean:.4f})"
+    )
+    
+    ax.axhline(
+        threshold_moderate,
+        color="red",
+        linestyle="--",
+        linewidth=1.5,
+        label=f"Порог загрязнения ({threshold_moderate:.4f})"
+    )
+    
+    # --- Подписи классов над столбцами ---
     for i, val in enumerate(df_model["ARG_fraction"]):
         if val < threshold_clean:
-            ax.text(i-bar_width/2, val+0.0001, "Чистая", ha='center', fontsize=4, color='green')
+            label = "Чистая"
+            color = "green"
         elif val < threshold_moderate:
-            ax.text(i-bar_width/2, val+0.0001, "Умеренно", ha='center', fontsize=4, color='orange')
+            label = "Умеренно загрязнённая"
+            color = "orange"
         else:
-            ax.text(i-bar_width/2, val+0.0001, "Грязная", ha='center', fontsize=4, color='red')
-
-    ax.set_xticks(indices)
-    ax.set_xticklabels(df_model["Sample"], rotation=90)
-    ax.set_ylabel("Доля ARG")
-    ax.set_title("Фактическая и прогнозная доля ARG")
-    ax.legend()
+            label = "Загрязнённая"
+            color = "red"
+    
+        ax.annotate(
+            label,
+            xy=(i, val),
+            xytext=(0, 4),
+            textcoords="offset points",
+            ha="center",
+            va="bottom",
+            fontsize=7,
+            color=color
+        )
+    
+    # --- Оформление осей ---
+    ax.set_xticks(x)
+    ax.set_xticklabels(df_model["Sample"], rotation=90, fontsize=8)
+    ax.set_ylabel("Доля ARG во всём метагеноме", fontsize=10)
+    ax.set_xlabel("Образцы почвы", fontsize=10)
+    
+    ax.set_title(
+        "Антибиотикорезистентные гены в почвах\n"
+        "Фактические значения, прогноз модели и пороговые уровни",
+        fontsize=12
+    )
+    
+    ax.legend(fontsize=8, frameon=False)
+    ax.grid(axis="y", linestyle=":", alpha=0.4)
+    
+    plt.tight_layout()
     st.pyplot(fig)
 
     # --- Скачивание ---
