@@ -15,8 +15,8 @@ st.markdown("""
 
 # --- Настройка порогов через боковую панель ---
 st.sidebar.header("Настройка порогов ARG")
-threshold_clean = st.sidebar.slider("Порог для чистой почвы", min_value=0.0, max_value=0.05, value=0.01, step=0.001)
-threshold_moderate = st.sidebar.slider("Порог для умеренно загрязнённой почвы", min_value=0.0, max_value=0.1, value=0.05, step=0.001)
+threshold_clean = st.sidebar.slider("Порог для чистой почвы", min_value=0.0, max_value=0.05, value=0.0001, step=0.0001)
+threshold_moderate = st.sidebar.slider("Порог для умеренно загрязнённой почвы", min_value=0.0, max_value=0.1, value=0.0005, step=0.0001)
 
 uploaded_file = st.file_uploader("Выберите Excel файл", type="xlsx")
 
