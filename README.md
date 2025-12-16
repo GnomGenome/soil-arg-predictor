@@ -34,5 +34,5 @@ This tool provides a statistical and machine learning-based approach for assessi
 ## Installation (Local)
 ```bash
 pip install -r requirements.txt
-streamlit run app.py
+streamlit run soil_app_interactive.py
 
