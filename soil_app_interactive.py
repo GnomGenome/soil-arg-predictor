@@ -93,11 +93,11 @@ if uploaded_file:
 
     for i, val in enumerate(df_model["ARG_fraction"]):
         if val < threshold_clean:
-            ax.text(i-bar_width/2, val+0.002, "Чистая 🌿", ha='center', fontsize=8, color='green')
+            ax.text(i-bar_width/2, val+0.0002, "Чистая 🌿", ha='center', fontsize=8, color='green')
         elif val < threshold_moderate:
-            ax.text(i-bar_width/2, val+0.002, "Умеренно 🟠", ha='center', fontsize=8, color='orange')
+            ax.text(i-bar_width/2, val+0.0002, "Умеренно 🟠", ha='center', fontsize=8, color='orange')
         else:
-            ax.text(i-bar_width/2, val+0.002, "Грязная 🔴", ha='center', fontsize=8, color='red')
+            ax.text(i-bar_width/2, val+0.0002, "Грязная 🔴", ha='center', fontsize=8, color='red')
 
     ax.set_xticks(indices)
     ax.set_xticklabels(df_model["Sample"], rotation=90)
