@@ -16,7 +16,7 @@ st.markdown("""
 # --- Настройка порогов через боковую панель ---
 st.sidebar.header("Настройка порогов ARG")
 threshold_clean = st.sidebar.slider("Порог для чистой почвы", min_value=0.0, max_value=0.05, value=0.0001, step=0.0001)
-threshold_moderate = st.sidebar.slider("Порог для умеренно загрязнённой почвы", min_value=0.0, max_value=0.1, value=0.0005, step=0.0001)
+threshold_moderate = st.sidebar.slider("Порог для умеренно загрязнённой почвы", min_value=0.0, max_value=0.5, value=0.0005, step=0.0001)
 
 uploaded_file = st.file_uploader("Выберите Excel файл", type="xlsx")
 
@@ -88,8 +88,8 @@ if uploaded_file:
     bar_width = 0.4
     indices = np.arange(len(df_model))
 
-    ax.bar(indices - bar_width/2, df_model["ARG_fraction"], width=bar_width, color='orange', alpha=0.7, label='Фактическая ARG_fraction')
-    ax.bar(indices + bar_width/2, df_model["ARG_fraction_pred"], width=bar_width, color='blue', alpha=0.5, label='Прогнозная ARG_fraction')
+    ax.bar(indices - bar_width/2, df_model["ARG_fraction"], width=bar_width, color='orange', alpha=0.07, label='Фактическая ARG_fraction')
+    ax.bar(indices + bar_width/2, df_model["ARG_fraction_pred"], width=bar_width, color='blue', alpha=0.05, label='Прогнозная ARG_fraction')
 
     for i, val in enumerate(df_model["ARG_fraction"]):
         if val < threshold_clean:
