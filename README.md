@@ -23,8 +23,6 @@ The input Excel file must contain the following columns:
 | Sample | Sample identifier |
 | Mn, Zn, Pb, Cu, Cr, Ni | Heavy metal concentrations (mg/kg) |
 | PAH | Polycyclic aromatic hydrocarbons |
-| ARG | Number of contigs containing antibiotic resistance genes |
-| total_contigs | Total number of contigs in the metagenome |
 
 ## Scientific Background
 Antibiotic resistance genes are increasingly recognized as indicators of anthropogenic pressure in agricultural soils. Heavy metals and PAHs may co-select for antimicrobial resistance in soil microbial communities.
