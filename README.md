@@ -34,3 +34,5 @@ This tool provides a statistical and machine learning-based approach for assessi
 pip install -r requirements.txt
 streamlit run soil_app_interactive.py
 
+## Link
+https://soil-arg-predictor.onrender.com/
